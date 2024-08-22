@@ -4,10 +4,10 @@
   "main": "server.js",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
-    "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
-    "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
-    "prettier:fix": " prettier --write src",
+    "lint": "npx eslint src",
+    "lint:fix": "npx eslint src --fix",
+    "prettier": "prettier --ignore-path .gitignore --write src",
+    "prettier:fix": "prettier --write src",
     "start:dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
     "start:prod": "node ./dist/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
