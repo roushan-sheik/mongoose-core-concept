@@ -9,12 +9,14 @@ const connectDB = async () => {
       return;
     }
     if (connectionState === 2) {
-      console.log("Connecting to the DATABASE");
+      console.log("Connecting to the DATABASE...");
       return;
     }
-    const connectionInstance = await mongoose.connect(config.db_url as string);
+    const connectionInstance = await mongoose.connect(config.db_url as string, {
+      dbName: "mongoose-ts",
+    });
     console.log(
-      `\n MongoDB Connected !! DB HOST: ${connectionInstance.connection.host}`
+      `\n MongoDB Connected !! DB HOST: ${connectionInstance.connection.host}`,
     );
   } catch (error: any) {
     console.log("MongoDB Connection FAILED!", error.message);
