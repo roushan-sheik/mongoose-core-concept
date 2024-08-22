@@ -1,14 +1,11 @@
-import { format } from "date-fns";
-import slugify from "slugify";
 import { TMovie } from "../interfaces";
 import { Movie } from "../models/movie.model";
 
 const createMovie = async (payload: TMovie) => {
-  // make a slug by date and title
-  const date = format(payload.releaseDate, "MM/dd/yyyy");
-  const slug = slugify(`${payload.title}-${date}`, { lower: true });
-
-  return await Movie.create({ ...payload, slug });
+  const result = new Movie(payload);
+  const slug = result.createSlug(payload);
+  result.slug = slug;
+  return await result.save();
 };
 // get all movies
 const getAllMovies = async () => {
@@ -20,7 +17,6 @@ const getSingleMovieById = async (id: string) => {
 };
 // get single movie by slug
 const getSingleMovieBySlug = async (slug: string) => {
- 
   return await Movie.findOne({ slug: slug });
 };
 

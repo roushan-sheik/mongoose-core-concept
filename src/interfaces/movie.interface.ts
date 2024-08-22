@@ -1,3 +1,5 @@
+import { Model } from "mongoose";
+
 export type TReview = {
   email: string;
   rating: number;
@@ -14,3 +16,12 @@ export type TMovie = {
   slug: string;
   reviews: [TReview];
 };
+// instance method type
+// Put all user instance methods in this interface:
+export type TMovieMethod = {
+  // eslint-disable-next-line no-unused-vars
+  createSlug(payload: TMovie): string;
+};
+
+// Create a new Model type that knows about IUserMethods...
+export type TMovieModel = Model<TMovie, Record<string, unknown>, TMovieMethod>;
