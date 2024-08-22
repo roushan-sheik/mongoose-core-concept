@@ -1,9 +1,27 @@
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import express, { Request, Response } from "express";
+import config from "./config";
 
 const app = express();
+// cors options
+const options = {
+  origin: config.cors_origin,
+  credentials: true,
+};
+app.use(express.json({ limit: "16kb" }));
+app.use(cors(options));
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true, limit: "16kb" }));
+app.use(express.static("public"));
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World! Next Generation ");
+  res.send("Hello World!");
 });
+ 
+
+// route import
+import movieRoute from "./modules/movies/movie.route";
+app.use("/api/v1", movieRoute);
 
 export { app };
