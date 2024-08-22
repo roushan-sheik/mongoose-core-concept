@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import mongoose from "mongoose";
 import config from "../config";
 
@@ -16,8 +17,9 @@ const connectDB = async () => {
       dbName: "mongoose-ts",
     });
     console.log(
-      `\n MongoDB Connected !! DB HOST: ${connectionInstance.connection.host}`,
+      `\n MongoDB Connected !! DB HOST: ${connectionInstance.connection.host}`
     );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.log("MongoDB Connection FAILED!", error.message);
     process.exit(1);

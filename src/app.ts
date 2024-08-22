@@ -18,10 +18,9 @@ app.use(express.static("public"));
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
 });
- 
 
 // route import
-import movieRoute from "./modules/movies/movie.route";
-app.use("/api/v1", movieRoute);
+import routes from "./routes";
+app.use("/api/v1", routes.movieRoute);
 
 export { app };

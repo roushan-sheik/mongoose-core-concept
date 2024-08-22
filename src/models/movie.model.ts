@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { TMovie, TReview } from "./movie.interface";
+import { TMovie, TReview } from "../interfaces";
 
 // sub schema
 const reviewSchema = new Schema<TReview>({

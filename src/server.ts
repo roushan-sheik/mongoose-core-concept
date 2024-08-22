@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import { app } from "./app";
 import config from "./config";
-import connectDB from "./db/connectDB";
 
-connectDB()
+config
+  .connectDB()
   .then(() => {
     app.listen(config.port, () => {
       console.log(`\n App is running on port: http://localhost:${config.port}`);
