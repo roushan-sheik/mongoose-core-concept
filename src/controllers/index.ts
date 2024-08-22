@@ -1,7 +1,13 @@
-import { createMovie, getAllMovies, getMovieById } from "./movie.controllers";
+import {
+  createMovie,
+  getAllMovies,
+  getMovieById,
+  getMovieBySlug,
+} from "./movie.controllers";
 
 export default {
   createMovie,
   getAllMovies,
   getMovieById,
+  getMovieBySlug,
 };

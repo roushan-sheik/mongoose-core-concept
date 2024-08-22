@@ -15,6 +15,7 @@ const movieSchema = new Schema<TMovie>({
   genre: { type: String, required: [true, "genre is required"] },
   isDeleted: { type: Boolean, default: false },
   viewCount: { type: Number, default: 0 },
+  slug: String,
   reviews: reviewSchema,
 });
 

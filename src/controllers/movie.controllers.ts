@@ -32,5 +32,15 @@ const getMovieById = async (req: Request, res: Response) => {
     res.status(500).json({ message: error.message });
   }
 };
+// get movie by Slug
+const getMovieBySlug = async (req: Request, res: Response) => {
+  try {
+    const { slug } = req.params;
+    const result = await services.getSingleMovieBySlug(slug);
+    res.status(200).json({ success: true, data: result });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
-export { createMovie, getAllMovies, getMovieById };
+export { createMovie, getAllMovies, getMovieById, getMovieBySlug };
