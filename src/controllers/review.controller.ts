@@ -1,25 +1,22 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
 import services from "../services";
+import { ApiResponse, asyncHandler } from "../utils";
 
-// create review 
-const createReview = async (req: Request, res: Response) => {
-  try {
-    const { slug } = req.params;
-    const review = await services.createReview(slug, req.body);
-    res
-      .status(200)
-      .json({ success: true, message: "Review Created", data: review });
-  } catch (error: any) {
-    res.status(500).json({ message: error.message });
-  }
-};
+// create review
+const createReview = asyncHandler(async (req: Request, res: Response) => {
+  const { slug } = req.params;
+  const review = await services.createReview(slug, req.body);
+  res
+    .status(StatusCodes.OK)
+    .json(new ApiResponse(StatusCodes.OK, review, "Review is created"));
+});
 
 const getAllReviews = async (req: Request, res: Response) => {
   try {
-    res.status(200).json({ Hello: "Hi" });
+    res.status(StatusCodes.OK).json({ Hello: "Hi" });
   } catch (error) {
-    res.status(500).json(error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 };
-export { getAllReviews, createReview };
+export { createReview, getAllReviews };

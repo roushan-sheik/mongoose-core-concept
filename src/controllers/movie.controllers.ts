@@ -1,46 +1,31 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
 import services from "../services";
+import { ApiResponse, asyncHandler } from "../utils";
 
 // create movie
-const createMovie = async (req: Request, res: Response) => {
-  try {
-    const result = await services.createMovie(req.body);
-    res
-      .status(201)
-      .json({ success: true, message: "User created", data: result });
-  } catch (error: any) {
-    res.status(500).json({ message: error.message });
-  }
-};
+const createMovie = asyncHandler(async (req: Request, res: Response) => {
+  const result = await services.createMovie(req.body);
+  res
+    .status(StatusCodes.CREATED)
+    .json(new ApiResponse(StatusCodes.CREATED, result, "User created"));
+});
 // get all movies
-const getAllMovies = async (req: Request, res: Response) => {
-  try {
-    const movies = await services.getAllMovies();
-    res.status(200).json({ success: true, movies });
-  } catch (error: any) {
-    res.status(500).json({ message: error.message });
-  }
-};
+const getAllMovies = asyncHandler(async (req: Request, res: Response) => {
+  const movies = await services.getAllMovies();
+  res.status(StatusCodes.OK).json(new ApiResponse(StatusCodes.OK, movies));
+});
 // get movie by id
-const getMovieById = async (req: Request, res: Response) => {
-  try {
-    const id = req.params?.id;
-    const result = await services.getSingleMovieById(id);
-    res.status(200).json({ success: true, data: result });
-  } catch (error: any) {
-    res.status(500).json({ message: error.message });
-  }
-};
+const getMovieById = asyncHandler(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await services.getSingleMovieById(id);
+  res.status(StatusCodes.OK).json(new ApiResponse(StatusCodes.OK, result));
+});
 // get movie by Slug
-const getMovieBySlug = async (req: Request, res: Response) => {
-  try {
-    const { slug } = req.params;
-    const result = await services.getSingleMovieBySlug(slug);
-    res.status(200).json({ success: true, data: result });
-  } catch (error: any) {
-    res.status(500).json({ message: error.message });
-  }
-};
+const getMovieBySlug = asyncHandler(async (req: Request, res: Response) => {
+  const { slug } = req.params;
+  const result = await services.getSingleMovieBySlug(slug);
+  res.status(StatusCodes.OK).json(new ApiResponse(StatusCodes.OK, result));
+});
 
 export { createMovie, getAllMovies, getMovieById, getMovieBySlug };
