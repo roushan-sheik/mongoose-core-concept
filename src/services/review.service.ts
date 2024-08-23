@@ -10,7 +10,7 @@ const createReview = async (
   //*1 start session
   const session = await Movie.startSession();
   try {
-    //*2 start transaction 
+    //*2 start transaction
     //*3 send session with operation
     session.startTransaction();
     // 1. find movie by slug and check if exists | > err
@@ -39,7 +39,7 @@ const createReview = async (
     //*4 commit transaction
     await session.commitTransaction();
     //4. now return the review
-    return review;
+    return review[0];
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);

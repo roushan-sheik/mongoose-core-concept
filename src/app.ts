@@ -1,6 +1,6 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import express, { Request, Response } from "express";
+import express from "express";
 import config from "./config";
 
 const app = express();
@@ -16,13 +16,13 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
-});
-
 // route import
 import routes from "./routes";
 app.use("/api/v1", routes.movieRoute);
 app.use("/api/v1/movies", routes.reviewRoute);
+
+// global error handler middleware
+import middlewares from "./middlewares";
+app.use(middlewares.handleGlobalError);
 
 export { app };
