@@ -22,7 +22,7 @@ app.use("/api/v1", routes.movieRoute);
 app.use("/api/v1/movies", routes.reviewRoute);
 
 // global error handler middleware
-import middlewares from "./middlewares";
-app.use(middlewares.handleGlobalError);
+import { handleGlobalError } from "./middlewares";
+app.use(handleGlobalError);
 
 export { app };

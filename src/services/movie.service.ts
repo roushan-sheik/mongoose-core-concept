@@ -1,5 +1,6 @@
 import { TMovie } from "../interfaces";
 import { Movie } from "../models/movie.model";
+ 
 
 const createMovie = async (payload: TMovie) => {
   const result = new Movie(payload);
