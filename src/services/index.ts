@@ -3,7 +3,7 @@ import {
   getAllMovies,
   getSingleMovieById,
   getSingleMovieBySlug,
-} from "./createMovie";
+} from "./movie.service";
 
 export default {
   createMovie,

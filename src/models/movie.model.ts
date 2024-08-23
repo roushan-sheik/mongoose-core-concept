@@ -1,16 +1,10 @@
 import { format } from "date-fns";
 import { model, Schema } from "mongoose";
 import slugify from "slugify";
-import { TMovie, TMovieMethod, TMovieModel, TReview } from "../interfaces";
+import { TMovie, TMovieMethod, TMovieModel } from "../interfaces";
 
-// sub schema
-const reviewSchema = new Schema<TReview, TMovieModel, TMovieMethod>({
-  email: { type: String, required: true },
-  rating: { type: Number, required: true },
-  comment: { type: String, required: true },
-});
 // main movie schema
-const movieSchema = new Schema<TMovie>({
+const movieSchema = new Schema<TMovie, TMovieModel, TMovieMethod>({
   title: { type: String, required: true },
   description: { type: String, required: true },
   releaseDate: { type: Date },
@@ -18,7 +12,7 @@ const movieSchema = new Schema<TMovie>({
   isDeleted: { type: Boolean, default: false },
   viewCount: { type: Number, default: 0 },
   slug: String,
-  reviews: reviewSchema,
+  totalRating: { type: Number, default: 0 },
 });
 
 // make a slug by date and title before save in to the database

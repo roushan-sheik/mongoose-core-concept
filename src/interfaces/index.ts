@@ -1,3 +1,4 @@
-import { TMovie, TMovieMethod, TReview, TMovieModel } from "./movie.interface";
+import { TMovie, TMovieMethod, TMovieModel } from "./movie.interface";
+import { TReview } from "./review.interface";
 
-export { TMovie, TMovieMethod, TReview, TMovieModel };
+export { TMovie, TMovieMethod, TMovieModel, TReview };

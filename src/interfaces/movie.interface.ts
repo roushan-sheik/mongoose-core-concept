@@ -1,11 +1,5 @@
 import { Model } from "mongoose";
 
-export type TReview = {
-  email: string;
-  rating: number;
-  comment: string;
-};
-
 export type TMovie = {
   title: string;
   description: string;
@@ -14,7 +8,7 @@ export type TMovie = {
   isDeleted: boolean;
   viewCount: number;
   slug: string;
-  reviews: [TReview];
+  totalRating: number;
 };
 // instance method type
 // Put all user instance methods in this interface:

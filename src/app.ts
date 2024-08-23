@@ -9,6 +9,7 @@ const options = {
   origin: config.cors_origin,
   credentials: true,
 };
+// middlewares
 app.use(express.json({ limit: "16kb" }));
 app.use(cors(options));
 app.use(cookieParser());
@@ -22,5 +23,6 @@ app.get("/", (req: Request, res: Response) => {
 // route import
 import routes from "./routes";
 app.use("/api/v1", routes.movieRoute);
+app.use("/api/v1", routes.reviewRoute);
 
 export { app };
