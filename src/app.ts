@@ -23,6 +23,6 @@ app.get("/", (req: Request, res: Response) => {
 // route import
 import routes from "./routes";
 app.use("/api/v1", routes.movieRoute);
-app.use("/api/v1", routes.reviewRoute);
+app.use("/api/v1/movies", routes.reviewRoute);
 
 export { app };

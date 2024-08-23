@@ -4,7 +4,7 @@ import {
   getMovieById,
   getMovieBySlug,
 } from "./movie.controllers";
-import { getAllReviews } from "./review.controller";
+import { createReview, getAllReviews } from "./review.controller";
 
 export default {
   createMovie,
@@ -12,4 +12,5 @@ export default {
   getMovieById,
   getMovieBySlug,
   getAllReviews,
+  createReview,
 };

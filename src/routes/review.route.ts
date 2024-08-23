@@ -3,6 +3,7 @@ import controllers from "../controllers";
 
 const router = Router();
 
-router.get("/", controllers.getAllReviews);
+router.get("/:slug/review", controllers.getAllReviews);
+router.post("/:slug/review", controllers.createReview);
 
 export default router;
