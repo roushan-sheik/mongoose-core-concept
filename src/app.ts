@@ -6,7 +6,7 @@ import config from "./config";
 const app = express();
 // cors options
 const options = {
-  origin: config.cors_origin,
+  origin: config.cors_origin, 
   credentials: true,
 };
 // middlewares
@@ -21,8 +21,9 @@ import routes from "./routes";
 app.use("/api/v1", routes.movieRoute);
 app.use("/api/v1/movies", routes.reviewRoute);
 
-// global error handler middleware
-import { handleGlobalError } from "./middlewares";
+// global error handler and not found middleware
+import { handleGlobalError, notFound } from "./middlewares";
+app.use(notFound);
 app.use(handleGlobalError);
 
 export { app };

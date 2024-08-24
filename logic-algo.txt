@@ -4,7 +4,7 @@
         * to format date use date-fns npm package
         * to make a slug use slugify npm package
             # you can make this slug in to your service.
-            # or you can use mongodb .pre() middleware
+            # or you can use mongodb .pre("save") middleware
             # or you can create an mongoose instance method
             # or you can create a mongoose static method
     3. Create movie and send response 
