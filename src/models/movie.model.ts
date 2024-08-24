@@ -4,16 +4,19 @@ import slugify from "slugify";
 import { TMovie, TMovieMethod, TMovieModel } from "../interfaces";
 
 // main movie schema
-const movieSchema = new Schema<TMovie, TMovieModel, TMovieMethod>({
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  releaseDate: { type: Date },
-  genre: { type: String, required: [true, "genre is required"] },
-  isDeleted: { type: Boolean, default: false },
-  viewCount: { type: Number, default: 0 },
-  slug: String,
-  totalRating: { type: Number, default: 0 },
-});
+const movieSchema = new Schema<TMovie, TMovieModel, TMovieMethod>(
+  {
+    title: { type: String, unique: true, required: true },
+    description: { type: String, required: true, unique: true },
+    releaseDate: { type: Date },
+    genre: { type: String, required: [true, "genre is required"] },
+    isDeleted: { type: Boolean, default: false },
+    viewCount: { type: Number, default: 0 },
+    slug: String,
+    totalRating: { type: Number, default: 0 },
+  },
+  { timestamps: true }
+);
 
 // make a slug by date and title before save in to the database
 // movieSchema.pre("save", function (next) {
@@ -26,5 +29,8 @@ movieSchema.method("createSlug", function createSlug(payload: TMovie) {
   const date = format(payload.releaseDate, "MM/dd/yyyy");
   return slugify(`${payload.title}-${date}`, { lower: true });
 });
+
+// Ensure the title index is created
+movieSchema.index({ title: 1 }, { unique: true });
 
 export const Movie = model<TMovie, TMovieModel>("Movie", movieSchema);

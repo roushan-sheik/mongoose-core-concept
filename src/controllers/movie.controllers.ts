@@ -1,11 +1,21 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+import { z } from "zod";
 import services from "../services";
 import { ApiResponse, asyncHandler } from "../utils";
 
+const zodMovieSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  releaseDate: z.string().date(),
+  genre: z.string(),
+  isDeleted: z.boolean().optional(),
+});
 // create movie
 const createMovie = asyncHandler(async (req: Request, res: Response) => {
-  const result = await services.createMovie(req.body);
+  const movieData = req.body;
+  zodMovieSchema.parse(movieData);
+  const result = await services.createMovie(movieData);
   res
     .status(StatusCodes.CREATED)
     .json(new ApiResponse(StatusCodes.CREATED, result, "User created"));
