@@ -1,9 +1,9 @@
 import { TMovie } from "../interfaces";
 import { Movie } from "../models/movie.model";
- 
 
 const createMovie = async (payload: TMovie) => {
   const result = new Movie(payload);
+  // throw new ApiError(400, "Fake Error");
   const slug = result.createSlug(payload);
   result.slug = slug;
   return await result.save();
