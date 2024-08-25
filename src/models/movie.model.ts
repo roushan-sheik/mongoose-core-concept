@@ -6,7 +6,11 @@ import { TMovie, TMovieMethod, TMovieModel } from "../interfaces";
 // main movie schema
 const movieSchema = new Schema<TMovie, TMovieModel, TMovieMethod>(
   {
-    title: { type: String, unique: true, required: true },
+    title: {
+      type: String,
+      unique: true,
+      required: [true, "Title is required"],
+    },
     description: { type: String, required: true, unique: true },
     releaseDate: { type: Date },
     genre: { type: String, required: [true, "genre is required"] },

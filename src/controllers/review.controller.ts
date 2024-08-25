@@ -19,4 +19,4 @@ const getAllReviews = async (req: Request, res: Response) => {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 };
-export { createReview, getAllReviews };
+export const reviewController = { createReview, getAllReviews };

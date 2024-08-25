@@ -1,20 +1,10 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { z } from "zod";
 import services from "../services";
 import { ApiResponse, asyncHandler } from "../utils";
 
-const zodMovieSchema = z.object({
-  title: z.string(),
-  description: z.string(),
-  releaseDate: z.string().date(),
-  genre: z.string(),
-  isDeleted: z.boolean().optional(),
-});
-// create movie
 const createMovie = asyncHandler(async (req: Request, res: Response) => {
   const movieData = req.body;
-  zodMovieSchema.parse(movieData);
   const result = await services.createMovie(movieData);
   res
     .status(StatusCodes.CREATED)
@@ -38,4 +28,4 @@ const getMovieBySlug = asyncHandler(async (req: Request, res: Response) => {
   res.status(StatusCodes.OK).json(new ApiResponse(StatusCodes.OK, result));
 });
 
-export { createMovie, getAllMovies, getMovieById, getMovieBySlug };
+export const movieController = { createMovie, getAllMovies, getMovieById, getMovieBySlug };

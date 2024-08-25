@@ -7,6 +7,7 @@ import {
   handleCastError,
   handleDuplicateError,
   handleValidationError,
+  handleZodError,
 } from "../errors";
 import { TCustomError } from "../interfaces";
 
@@ -23,18 +24,13 @@ const handleGlobalError: ErrorRequestHandler = (err, req, res, next) => {
       },
     ],
   };
-  //* Handle Zod Error
+  //* Handle Zod Error ==============================>
   if (err instanceof ZodError) {
-    const handledError = err.issues.map((error) => {
-      return {
-        path: error.path[error.path.length - 1],
-        message: error.message,
-      };
-    });
-    customError.errorSources = handledError;
+    const simplified = handleZodError(err);
+    customError.errorSources = simplified;
     customError.message = err.name;
   }
-  //* Mongoose Errors
+  //* Mongoose Errors ================================>
   // Validation error => missing field
   if (err.name === "ValidationError") {
     const simplified = handleValidationError(err);

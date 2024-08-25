@@ -1,16 +1,5 @@
 import {
-  createMovie,
-  getAllMovies,
-  getMovieById,
-  getMovieBySlug,
+movieController
 } from "./movie.controllers";
-import { createReview, getAllReviews } from "./review.controller";
-
-export default {
-  createMovie,
-  getAllMovies,
-  getMovieById,
-  getMovieBySlug,
-  getAllReviews,
-  createReview,
-};
+import { reviewController } from "./review.controller";
+export { movieController, reviewController };
