@@ -1,0 +1,21 @@
+//* create Movie Logic steps
+    1. Get data from req.body 
+    2. Make slug by title and releaseDate 
+        * to format date use date-fns npm package
+        * to make a slug use slugify npm package
+            # you can make this slug in to your service.
+            # or you can use mongodb .pre("save") middleware
+            # or you can create an mongoose instance method
+            # or you can create a mongoose static method
+    3. Create movie and send response 
+
+//* Create Review Logic steps 
+    1. find movie by slug and check if exists | > err
+    2. create review by movie id 
+    << ensure security
+        *Transaction roll back 
+         // Read the blog https://www.ultimateakash.com/blog-details/IiwzQGAKYAo=/How-to-implement-Transactions-in-Mongoose-&-Node.Js-(Express)
+    3. increase the total rating count
+    4. now return the review
+<ensure security
+        *Transaction roll back 
