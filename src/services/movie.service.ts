@@ -10,18 +10,23 @@ const createMovie = async (payload: TMovie) => {
 };
 // get all movies
 const getAllMovies = async (payload: Record<string, unknown>) => {
+  // searching
   let searchTerm = "";
   if (payload?.searchTerm) {
     searchTerm = payload.searchTerm as string;
   }
   const searchableFields = ["title", "genre"];
-  const searchedMovies = await Movie.find({
+  const searchedMovies = Movie.find({
     $or: searchableFields.map((field) => ({
       [field]: { $regex: searchTerm, $options: "i" },
     })),
   });
-
-  return searchedMovies;
+  // filtering
+  const payloadObj = { ...payload };
+  const excludeField = ["searchTerm"];
+  excludeField.forEach((filed) => delete payloadObj[filed]);
+  const result = await searchedMovies.find(payloadObj);
+  return result;
 };
 // get single movie by id
 const getSingleMovieById = async (id: string) => {
