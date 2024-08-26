@@ -10,7 +10,7 @@ const createMovie = async (payload: TMovie) => {
 };
 // get all movies
 const getAllMovies = async (payload: Record<string, unknown>) => {
-  //* searching ==================================>
+  //* 1. searching ==================================>
   let searchTerm = "";
   if (payload?.searchTerm) {
     searchTerm = payload.searchTerm as string;
@@ -21,11 +21,7 @@ const getAllMovies = async (payload: Record<string, unknown>) => {
       [field]: { $regex: searchTerm, $options: "i" },
     })),
   });
-  //* pagination ===================================>
-  // 1st  skip = 0
-  // 2nd skip = 2*10 - 1*10
-  // 3rd skip = 3*10 - 2*10
-  // skip = page-1 * limit
+  //* 2. pagination ===================================>
   const limit: number = Number(payload?.limit || 10);
   let skip: number = 0;
   if (payload?.page) {
@@ -35,12 +31,19 @@ const getAllMovies = async (payload: Record<string, unknown>) => {
   const skipQuery = searchedMovies.skip(skip);
   const limitQuery = skipQuery.limit(limit);
 
-  //* filtering ===================================>
+  //* 3. Sorting ========================================>
+  let sortBy = "-releaseDate";
+  if (payload?.sortBy) {
+    sortBy = payload.sortBy as string;
+  }
+  const sortedQuery = limitQuery.sort(sortBy);
+  //* 4. filtering ===================================>
   const payloadObj = { ...payload };
-  const excludeField = ["searchTerm", "limit", "page"];
+  const excludeField = ["searchTerm", "limit", "page", "sortBy"];
   excludeField.forEach((filed) => delete payloadObj[filed]);
 
-  const result = await limitQuery.find(payloadObj);
+  const result = await sortedQuery.find(payloadObj);
+  // http://localhost:8000/api/v1/movies?searchTerm=arifa&releaseDate=2000-01-16&page=1&limit=10&sortBy=releaseDate
 
   return result;
 };
