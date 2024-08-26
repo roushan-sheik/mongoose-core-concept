@@ -1,6 +1,7 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Request, Response } from "express";
+import config from "./config";
 
 const app = express();
 // cors options
@@ -25,7 +26,6 @@ app.use("/api/v1", routes.movieRoute);
 app.use("/api/v1/movies", routes.reviewRoute);
 
 // global error handler and not found middleware
-import config from "./config";
 import { handleGlobalError, notFound } from "./middlewares";
 app.use(notFound);
 app.use(handleGlobalError);

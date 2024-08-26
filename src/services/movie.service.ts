@@ -9,8 +9,19 @@ const createMovie = async (payload: TMovie) => {
   return await result.save();
 };
 // get all movies
-const getAllMovies = async () => {
-  return await Movie.find();
+const getAllMovies = async (payload: Record<string, unknown>) => {
+  let searchTerm = "";
+  if (payload?.searchTerm) {
+    searchTerm = payload.searchTerm as string;
+  }
+  const searchableFields = ["title", "genre"];
+  const searchedMovies = await Movie.find({
+    $or: searchableFields.map((field) => ({
+      [field]: { $regex: searchTerm, $options: "i" },
+    })),
+  });
+
+  return searchedMovies;
 };
 // get single movie by id
 const getSingleMovieById = async (id: string) => {

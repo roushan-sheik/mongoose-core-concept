@@ -12,7 +12,7 @@ const createMovie = asyncHandler(async (req: Request, res: Response) => {
 });
 // get all movies
 const getAllMovies = asyncHandler(async (req: Request, res: Response) => {
-  const movies = await services.getAllMovies();
+  const movies = await services.getAllMovies(req.query);
   res.status(StatusCodes.OK).json(new ApiResponse(StatusCodes.OK, movies));
 });
 // get movie by id
