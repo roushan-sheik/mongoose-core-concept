@@ -48,4 +48,6 @@ const createReview = async (
   //*5 end session
   session.endSession();
 };
-export { createReview };
+export const reviewService = {
+  createReview,
+};

@@ -28,4 +28,9 @@ const getSingleMovieBySlug = async (slug: string) => {
   return await Movie.findOne({ slug: slug });
 };
 
-export { createMovie, getAllMovies, getSingleMovieById, getSingleMovieBySlug };
+export const movieService = {
+  createMovie,
+  getAllMovies,
+  getSingleMovieById,
+  getSingleMovieBySlug,
+};

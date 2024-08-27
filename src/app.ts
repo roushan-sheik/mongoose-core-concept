@@ -22,8 +22,9 @@ app.get("/", (req: Request, res: Response) => {
 
 // route import
 import routes from "./routes";
-app.use("/api/v1", routes.movieRoute);
-app.use("/api/v1/movies", routes.reviewRoute);
+app.use("/api/v1/movies", routes.movieRoute);
+app.use("/api/v1/reviews", routes.reviewRoute);
+app.use("/api/v1/users", routes.userRoute);
 
 // global error handler and not found middleware
 import { handleGlobalError, notFound } from "./middlewares";

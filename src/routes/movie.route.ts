@@ -5,10 +5,10 @@ import { movieZodSchema } from "../validation";
 
 const router = Router();
 router
-  .route("/movies")
+  .route("/")
   .post(validateZodMovieReq(movieZodSchema), movieController.createMovie);
-router.route("/movies").get(movieController.getAllMovies);
-router.route("/movies/:id").get(movieController.getMovieById);
-router.route("/movies-by-slug/:slug").get(movieController.getMovieBySlug);
+router.route("").get(movieController.getAllMovies);
+router.route("/:id").get(movieController.getMovieById);
+router.route("/by-slug/:slug").get(movieController.getMovieBySlug);
 
 export default router;
