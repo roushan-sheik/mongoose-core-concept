@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import services from "../services";
+import { reviewService } from "../services";
 import { ApiResponse, asyncHandler } from "../utils";
 
 // create review
 const createReview = asyncHandler(async (req: Request, res: Response) => {
   const { slug } = req.params;
-  const review = await services.createReview(slug, req.body);
+  const review = await reviewService.createReview(slug, req.body);
   res
     .status(StatusCodes.OK)
     .json(new ApiResponse(StatusCodes.OK, review, "Review is created"));

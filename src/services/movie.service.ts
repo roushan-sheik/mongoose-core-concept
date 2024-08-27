@@ -1,3 +1,4 @@
+import { QueryBuilder } from "../builder/queryBuilder";
 import { TMovie } from "../interfaces";
 import { Movie } from "../models/movie.model";
 
@@ -9,8 +10,14 @@ const createMovie = async (payload: TMovie) => {
   return await result.save();
 };
 // get all movies
-const getAllMovies = async () => {
-  return await Movie.find();
+const getAllMovies = async (payload: Record<string, unknown>) => {
+  const movieQuery = new QueryBuilder(Movie.find({}), payload)
+    .search(["genre", "title", "limit", "page"])
+    .paginate()
+    .sort()
+    .filter();
+  const result = await movieQuery.modelQuery;
+  return result;
 };
 // get single movie by id
 const getSingleMovieById = async (id: string) => {
@@ -21,4 +28,9 @@ const getSingleMovieBySlug = async (slug: string) => {
   return await Movie.findOne({ slug: slug });
 };
 
-export { createMovie, getAllMovies, getSingleMovieById, getSingleMovieBySlug };
+export const movieService = {
+  createMovie,
+  getAllMovies,
+  getSingleMovieById,
+  getSingleMovieBySlug,
+};

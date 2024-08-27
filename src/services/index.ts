@@ -1,15 +1,5 @@
-import {
-  createMovie,
-  getAllMovies,
-  getSingleMovieById,
-  getSingleMovieBySlug,
-} from "./movie.service";
-import { createReview } from "./review.service";
+import { movieService } from "./movie.service";
+import { reviewService } from "./review.service";
+import { userService } from "./user.service";
 
-export default {
-  createMovie,
-  getAllMovies,
-  getSingleMovieById,
-  getSingleMovieBySlug,
-  createReview,
-};
+export { movieService, reviewService, userService };
