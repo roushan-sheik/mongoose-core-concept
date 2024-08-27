@@ -5,7 +5,8 @@ import { asyncHandler } from "../utils";
 const zodValidateReq = (schema: AnyZodObject) => {
   return asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
-      await schema.parseAsync(req.body);
+      const parsedBody = await schema.parseAsync(req.body);
+      req.body = parsedBody;
       next();
     }
   );
