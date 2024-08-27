@@ -1,5 +1,5 @@
 import handleGlobalError from "./error-handler";
 import notFound from "./not-found";
-import validateZodMovieReq from "./validateZodMovieReq";
+import zodValidateReq from "./zodValidateReq";
 
-export { handleGlobalError, notFound, validateZodMovieReq };
+export { handleGlobalError, notFound, zodValidateReq };

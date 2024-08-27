@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { AnyZodObject } from "zod";
 import { asyncHandler } from "../utils";
 
-const validateZodMovieReq = (schema: AnyZodObject) => {
+const zodValidateReq = (schema: AnyZodObject) => {
   return asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
       await schema.parseAsync(req.body);
@@ -11,4 +11,4 @@ const validateZodMovieReq = (schema: AnyZodObject) => {
   );
 };
 
-export default validateZodMovieReq;
+export default zodValidateReq;

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { User_Role, User_Status } from "../constant/user.constant";
 
-export const userZodSchema = z.object({
+export const adminZodSchema = z.object({
   name: z.string(),
   role: z.nativeEnum(User_Role).default(User_Role.ADMIN),
   email: z.string().email(),
