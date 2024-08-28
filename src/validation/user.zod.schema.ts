@@ -9,3 +9,8 @@ export const adminZodSchema = z.object({
   status: z.nativeEnum(User_Status).default(User_Status.ACTIVE),
   passwordChangedAt: z.string().optional(),
 });
+export const updateUserSchema = z.object({
+  name: z.string(),
+  role: z.nativeEnum(User_Role).default(User_Role.ADMIN).optional(),
+  status: z.nativeEnum(User_Status).default(User_Status.ACTIVE).optional(),
+});
