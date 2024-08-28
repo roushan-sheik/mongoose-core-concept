@@ -25,6 +25,7 @@ import routes from "./routes";
 app.use("/api/v1/movies", routes.movieRoute);
 app.use("/api/v1/reviews", routes.reviewRoute);
 app.use("/api/v1/users", routes.userRoute);
+app.use("/api/v1/auth", routes.authRoute);
 
 // global error handler and not found middleware
 import { handleGlobalError, notFound } from "./middlewares";

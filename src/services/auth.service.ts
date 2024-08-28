@@ -3,13 +3,14 @@ import Jwt from "jsonwebtoken";
 import config from "../config";
 import { User_Role, User_Status } from "../constant/user.constant";
 import { TLoginUser, TUser } from "../interfaces";
+import { TToken } from "../interfaces/auth.interface";
 import { User } from "../models/user.model";
 import { ApiError } from "../utils";
 import { isPasswordMatch } from "../utils/auth.utils";
 
 // Register User
-const register = async (payload: TUser) => {
-  // check by email is user exists 
+const register = async (payload: TUser): Promise<TUser> => {
+  // check by email is user exists
   const isUserExists = await User.findOne({ email: payload.email });
   if (isUserExists) {
     throw new ApiError(
@@ -17,13 +18,14 @@ const register = async (payload: TUser) => {
       "User already exists with this email"
     );
   }
-  // setRole to user 
+  // setRole to user
   payload.role = User_Role.USER;
   const newUser = await User.create(payload);
+  newUser.password = "";
   return newUser;
 };
 // Login User
-const login = async (payload: TLoginUser) => {
+const login = async (payload: TLoginUser): Promise<TToken> => {
   // find user with email
   const user = await User.findOne({ email: payload.email }).select("+password");
   if (!user) {
@@ -57,9 +59,9 @@ const login = async (payload: TLoginUser) => {
       expiresIn: config.refresh_token_expiry,
     }
   );
-  return {accessToken, refreshToken}
+  return { accessToken, refreshToken };
 };
-export const authService = {
+export const authServices = {
   register,
   login,
 };
