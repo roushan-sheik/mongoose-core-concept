@@ -44,6 +44,7 @@ const login = async (payload: TLoginUser): Promise<TToken> => {
   const jwtPayload = {
     email: user.email,
     password: user.password,
+    role: user.role,
   };
   const accessToken = Jwt.sign(
     jwtPayload,

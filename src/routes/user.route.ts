@@ -1,13 +1,18 @@
 import { Router } from "express";
+import { User_Role } from "../constant/user.constant";
 import { userController } from "../controllers";
-import { zodValidateReq } from "../middlewares";
+import { verifyAuth, zodValidateReq } from "../middlewares";
 import { adminZodSchema, updateUserSchema } from "../validation";
 
 const router = Router();
 
 router
   .route("/create-admin")
-  .post(zodValidateReq(adminZodSchema), userController.createAdmin);
+  .post(
+    zodValidateReq(adminZodSchema),
+    verifyAuth(User_Role.ADMIN, User_Role.SUPER_ADMIN),
+    userController.createAdmin
+  );
 router
   .route("/userId")
   .post(zodValidateReq(updateUserSchema), userController.updateUser);
